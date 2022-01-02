@@ -1,12 +1,13 @@
+library(tidyverse)
 setwd("~/Downloads/maize/annotation")
 temp=list.files(path="~/Downloads/maize/annotation",pattern="*.txt")
-temp
 
 for(i in 1:length(temp)){
   file=read.table(temp[i],sep = ' ')
-  file1 <- file %>% dplyr::select(V1,V3,V2,everything())
-  file1['V3'] <- 1-file1['V3']
+  file1 <- file %>% dplyr::select(V1,V3,V2,V5,V4)
+  file1['V2'] <- 1-file1['V2']
   setwd("~/Downloads/maize/annotationnew")
-  write.table(file1,temp[i],quote=FALSE,col.names=FALSE,row.names=FALSE,sep=' ')
+  name=paste(gsub(pattern = ".txt",replacement = "",x=temp[i]),"_rotate.txt",sep="")
+  write.table(file1,name,quote=FALSE,col.names=FALSE,row.names=FALSE,sep=' ')
   setwd("~/Downloads/maize/annotation")
 }
